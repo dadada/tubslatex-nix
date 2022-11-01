@@ -1,0 +1,46 @@
+imports = [ "git/hooks" ]
+packages = [ "texliveWithTubslatex", "inotify-tools" ]
+
+[devshell]
+name = "thesis"
+
+[[commands]]
+name = "format"
+command = "nix fmt"
+help = "Formats the nix files"
+category = "development"
+
+[[commands]]
+name = "update"
+command = "nix flake update --commit-lock-file"
+help = "Updates the dependencies"
+category = "development"
+
+[[commands]]
+name = "check"
+command = "nix flake check"
+help = "Checks if this flake is valid"
+category = "development"
+
+[[commands]]
+name = "build-thesis"
+command = "make thesis.pdf"
+category = "outputs"
+help = "Builds the thesis"
+
+[[commands]]
+name = "clean"
+command = "make clean"
+category = "outputs"
+help = "Cleans the build directory"
+
+[git.hooks]
+enable = true
+
+[git.hooks.pre-commit]
+text = """
+FILES=$(git diff --cached --name-only --diff-filter=ACMR -- *.nix| sed -e 's| |\\ |g')
+[ -z "$FILES" ] && exit 0
+echo $FILES | xargs nix fmt
+echo $FILES | xargs git add
+exit 0"""
