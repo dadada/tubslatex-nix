@@ -19,6 +19,7 @@
             let
               pkgs = import nixpkgs {
                 inherit system;
+                config.allowUnfree = true;
                 overlays = [
                   devshell.overlays.default
                   tubslatexOverlay
