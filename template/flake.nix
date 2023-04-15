@@ -2,7 +2,7 @@
   description = "Thesis";
   inputs.flake-utils.url = github:numtide/flake-utils;
   inputs.devshell.url = github:numtide/devshell;
-  inputs.tubslatex.url = "git+ssh://github.com/dadada/tubslatex-nix?branch=main";
+  inputs.tubslatex.url = "github:dadada/tubslatex-nix";
 
   outputs = { self, flake-utils, nixpkgs, devshell, tubslatex }@inputs:
     flake-utils.lib.eachDefaultSystem

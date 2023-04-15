@@ -137,17 +137,17 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1667307103,
-        "narHash": "sha256-lwS0/ON7yc8I+orxt7w+zO0Dmo1peQ65z4ObKaJhAdk=",
-        "ref": "refs/heads/main",
-        "rev": "cae35e5ff56a43f446f175a3931c5b468354bb00",
-        "revCount": 1,
-        "type": "git",
-        "url": "ssh://github.com/dadada/tubslatex-nix?branch=main"
+        "lastModified": 1681570146,
+        "narHash": "sha256-+x5huf47ecM+FCjOWB7hka/DNHg81gxjL85qaTLUE/s=",
+        "owner": "dadada",
+        "repo": "tubslatex-nix",
+        "rev": "f1b9082f4eddffdf579f5f0c61973b6aa21844d7",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "ssh://github.com/dadada/tubslatex-nix?branch=main"
+        "owner": "dadada",
+        "repo": "tubslatex-nix",
+        "type": "github"
       }
     }
   },
