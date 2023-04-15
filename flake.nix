@@ -49,5 +49,12 @@
           in
           combined.overrideAttrs postCombineOverride;
       };
+    } // {
+      templates = {
+        thesis = {
+          path = ./template;
+          description = "Thesis template";
+        };
+      };
     };
 }
