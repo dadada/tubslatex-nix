@@ -50,7 +50,8 @@
           combined.overrideAttrs postCombineOverride;
       };
     } // {
-      templates = {
+      templates = rec {
+        default = thesis;
         thesis = {
           path = ./template;
           description = "Thesis template";
