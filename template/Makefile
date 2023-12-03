@@ -9,7 +9,4 @@ thesis.pdf: thesis.tex
 	latexmk -interaction=batchmode -pdf thesis.tex
 
 watch:
-	while true; do \
-	  	inotifywait -qr -e modify -e create -e delete -e move *tex; \
-	  	$(MAKE); \
-	done
+	latexmk -pvc -pdf thesis.tex

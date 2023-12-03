@@ -1,41 +1,26 @@
 {
   description = "Thesis";
   inputs.flake-utils.url = github:numtide/flake-utils;
-  inputs.devshell.url = github:numtide/devshell;
   inputs.tubslatex.url = "github:dadada/tubslatex-nix";
 
   outputs = { self, flake-utils, nixpkgs, devshell, tubslatex }@inputs:
     flake-utils.lib.eachDefaultSystem
       (system:
         let
-          tubslatexOverlay = tubslatex.overlays.default;
           pkgs = import nixpkgs {
             inherit system;
-            overlays = [ tubslatexOverlay ];
+            # Allow use of tubslatex although it is under an unfree license
+            config.allowUnfree = true;
+            overlays = [ tubslatex.overlays.default ];
           };
         in
         {
-          devShells.default =
-            let
-              pkgs = import nixpkgs {
-                inherit system;
-                config.allowUnfree = true;
-                overlays = [
-                  devshell.overlays.default
-                  tubslatexOverlay
-                ];
-              };
-            in
-            pkgs.devshell.mkShell {
-              imports = [ (pkgs.devshell.importTOML ./devshell.toml) ];
-            };
-
-          checks = {
-            format = pkgs.runCommand "format" { buildInputs = [ pkgs.nixpkgs-fmt ]; } "nixpkgs-fmt --check ${./.} && touch $out";
+          devShells.default = pkgs.mkShell {
+            packages = [ pkgs.texliveWithTubslatex ];
+            shellHook = ''
+              echo 'Run `make` to build the thesis.pdf or `make watch` to continuously watch for changes.'
+            '';
           };
-
-          formatter = pkgs.nixpkgs-fmt;
-
           packages.default = pkgs.callPackage
             ({ lib, texliveWithTubslatex, stdenvNoCC, ... }: stdenvNoCC.mkDerivation {
               pname = "thesis";
@@ -48,8 +33,7 @@
                 cp thesis.pdf $out
               '';
               meta = with lib; {
-                description = "Master thesis proposal";
-                maintainers = [ "dadada" ];
+                description = "Master thesis";
                 platforms = platforms.all;
                 license = licenses.proprietary;
               };
